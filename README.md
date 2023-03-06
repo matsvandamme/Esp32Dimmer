@@ -1,44 +1,70 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-# C41-ESP32
-Temperature control firmware for ESP32
-=======
-# _Sample project_
+# ESP32IDFDimmer
 
-(See the README.md file in the upper level 'examples' directory for more information about examples.)
+This library provides an API to control dimmer devices using the ESP32IDF. It supports both toggle and normal modes, and allows you to set the power levels of the dimmer. 
 
-This is the simplest buildable example. The example is used by command `idf.py create-project`
-that copies the project to user specified path and set it's name. For more information follow the [docs page](https://docs.espressif.com/projects/esp-idf/en/latest/api-guides/build-system.html#start-a-new-project)
+### Prerequisites
+- ESP32 board with ESP-IDF v4.1 or higher
+- A dimmable AC load 
 
+### Installation
+Clone the project from the repository and add the library to your project. 
 
-
-## How to use example
-We encourage the users to use the example as a template for the new projects.
-A recommended way is to follow the instructions on a [docs page](https://docs.espressif.com/projects/esp-idf/en/latest/api-guides/build-system.html#start-a-new-project).
-
-## Example folder contents
-
-The project **sample_project** contains one source file in C language [main.c](main/main.c). The file is located in folder [main](main).
-
-ESP-IDF projects are built using CMake. The project build configuration is contained in `CMakeLists.txt`
-files that provide set of directives and instructions describing the project's source files and targets
-(executable, library, or both). 
-
-Below is short explanation of remaining files in the project folder.
-
+### Usage
+1. Include the library header in your program 
 ```
-├── CMakeLists.txt
-├── main
-│   ├── CMakeLists.txt
-│   └── main.c
-└── README.md                  This is the file you are currently reading
+#include "esp32idfDimmer.h"
 ```
-Additionally, the sample project contains Makefile and component.mk files, used for the legacy Make based build system. 
-They are not used or needed when building with CMake and idf.py.
->>>>>>> 398e5ab (First commit)
-=======
->>>>>>> a2770d3 (First commit)
-=======
-Master branch
->>>>>>> 7a3992e (commit# Please enter the commit message for your changes. Lines starting)
+2. Instantiate the dimmers. 
+```
+dimmertyp *ptr_dimmer; 
+dimmertyp *ptr_dimmer_2; 
+
+ptr_dimmer = createDimmer(TRIAC_1_GPIO, ZEROCROSS_GPIO);
+ptr_dimmer_2 = createDimmer(TRIAC_2_GPIO, ZEROCROSS_GPIO);
+``` 
+3. Start the dimmers. 
+```
+begin(ptr_dimmer, NORMAL_MODE, ON, _50Hz);
+begin(ptr_dimmer_2, NORMAL_MODE, ON, _50Hz);
+```
+4. Set or get the power of the dimmers. 
+```
+// Set the power level to 50 
+setPower(ptr_dimmer, 50); 
+
+// Get the current power level 
+int powerLevel = getPower(ptr_dimmer); 
+``` 
+
+## API
+
+The library provides the following API methods:
+
+* `createDimmer` - creates a new dimmer object
+* `begin` - starts the dimmer
+* `setPower` - sets the power level of the dimmer
+* `getPower` - gets the current power level of the dimmer
+* `setState` - sets the state of the dimmer (on/off)
+* `getState` - gets the current state of the dimmer
+* `changeState` - changes the state of the dimmer (on/off)
+* `setMode` - sets the mode of the dimmer (toggle/normal)
+* `getMode` - gets the current mode of the dimmer
+* `toggleSettings` - sets the toggle range of the dimmer
+
+## Example schematics
+
+### Zero-crossing detector
+
+![image](https://user-images.githubusercontent.com/49943249/194775323-f39d7d93-49cd-4882-aff1-6535ebe1c8b8.png)
+
+### Triac command 
+
+![image](https://user-images.githubusercontent.com/49943249/194775053-0badd3f8-0c23-4a86-8843-abe2f994f5b3.png)
+
+## Contributing 
+
+We welcome contributions to this library. Please open a pull request or an issue to get started. 
+
+## License 
+
+This library is released under the MIT License.
