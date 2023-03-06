@@ -1,5 +1,6 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 # C41-ESP32
 Temperature control firmware for ESP32
 =======
@@ -38,3 +39,6 @@ They are not used or needed when building with CMake and idf.py.
 >>>>>>> 398e5ab (First commit)
 =======
 >>>>>>> a2770d3 (First commit)
+=======
+Master branch
+>>>>>>> 7a3992e (commit# Please enter the commit message for your changes. Lines starting)
